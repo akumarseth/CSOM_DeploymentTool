@@ -13,8 +13,8 @@ namespace CSOM_DeploymentTool
         internal static ClientContext GetClientContext()
         {
 
-            //Console.WriteLine("Enter UserName");
-            //string userName = Console.ReadLine();
+            Console.WriteLine("Enter UserName");
+            string userName = Console.ReadLine();
 
             //  //For On-Premise
 
@@ -45,9 +45,9 @@ namespace CSOM_DeploymentTool
 
             //  //For Office 365 - SharePoint Online
 
-            ClientContext context = new ClientContext("https://mazige.sharepoint.com/sites/dev/")
+            ClientContext context = new ClientContext("https://TENENTNAME.sharepoint.com/sites/dev/")
             {
-                Credentials = new SharePointOnlineCredentials("abhishek@mazige.onmicrosoft.com", GetPassword()),
+                Credentials = new SharePointOnlineCredentials(userName, GetPassword()),
             };
 
             return context;
@@ -55,29 +55,28 @@ namespace CSOM_DeploymentTool
 
         private static SecureString GetPassword()
         {
-            //Console.WriteLine("Enter Password");
-            //string password = string.Empty;
-            string password = "Admin@123";
-            //ConsoleKeyInfo info = Console.ReadKey(true);
-            //while (info.Key != ConsoleKey.Enter)
-            //{
-            //    if (info.Key != ConsoleKey.Backspace)
-            //    {
-            //        password += info.KeyChar;
-            //        info = Console.ReadKey(true);
-            //    }
-            //    else if (info.Key == ConsoleKey.Backspace)
-            //    {
-            //        if (!string.IsNullOrEmpty(password))
-            //        {
-            //            password = password.Substring
-            //            (0, password.Length - 1);
-            //        }
-            //        info = Console.ReadKey(true);
-            //    }
-            //}
-            //for (int i = 0; i < password.Length; i++)
-            //    Console.Write("*");
+            Console.WriteLine("Enter Password");
+            string password = string.Empty;
+            ConsoleKeyInfo info = Console.ReadKey(true);
+            while (info.Key != ConsoleKey.Enter)
+            {
+                if (info.Key != ConsoleKey.Backspace)
+                {
+                    password += info.KeyChar;
+                    info = Console.ReadKey(true);
+                }
+                else if (info.Key == ConsoleKey.Backspace)
+                {
+                    if (!string.IsNullOrEmpty(password))
+                    {
+                        password = password.Substring
+                        (0, password.Length - 1);
+                    }
+                    info = Console.ReadKey(true);
+                }
+            }
+            for (int i = 0; i < password.Length; i++)
+                Console.Write("*");
 
             SecureString s = new SecureString();
             foreach (char c in password)
